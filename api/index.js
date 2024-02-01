@@ -21,24 +21,12 @@ const app = express();
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({
-//   credentials: true,
-//   origin: "https://mern-chat-live1.vercel.app",
-// }))
-
-app.use((req, res, next) => {
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://mern-chat-live1.vercel.app',
-  );
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  );
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+app.use(
+  cors({
+    credentials: true,
+    origin: 'https://mern-chat-live1.vercel.app',
+  }),
+);
 
 async function getUserDataFromRequest(req) {
   return new Promise((resolve, reject) => {
