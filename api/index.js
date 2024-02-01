@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: "https://mern-chat-live1.vercel.app/",
+  origin: "https://mern-chat-live1.vercel.app",
 }))
 
 async function getUserDataFromRequest(req) {
