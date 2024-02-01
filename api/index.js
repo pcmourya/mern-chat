@@ -9,7 +9,6 @@ const User = require('./models/User');
 const Message = require('./models/Message');
 const ws = require('ws');
 const fs = require('fs');
-const bodyParser = require('body-parser');
 
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL, (err) => {
@@ -19,28 +18,36 @@ const jwtSecret = process.env.JWT_SECRET;
 const bcryptSalt = bcrypt.genSaltSync(10);
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(express.json());
 app.use(cookieParser());
 // app.use(
 //   cors({
-//     origin: '*',
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
+//     credentials: true,
+//     origin: 'https://mern-chat-live1.vercel.app',
 //   }),
 // );
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  );
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', true); // Ensure this is set to 'true'
-  next();
-});
+app.use(
+  cors({
+    credentials: true,
+    origin: 'https://mern-chat-live1.vercel.app',
+  }),
+);
+
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     'Access-Control-Allow-Origin',
+//     'https://mern-chat-live1.vercel.app',
+//   );
+//   res.setHeader(
+//     'Access-Control-Allow-Methods',
+//     'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+//   );
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   res.setHeader('Access-Control-Allow-Credentials', true); // Ensure this is set to 'true'
+//   next();
+// });
 
 async function getUserDataFromRequest(req) {
   return new Promise((resolve, reject) => {
