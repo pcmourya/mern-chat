@@ -12,7 +12,9 @@
       "src": "/(.*)",
       "dest": "/",
       "methods": ["GET", "POST", "PUT", "PATCH", "OPTIONS", "DELETE"],
-      "headers": { "Access-Control-Allow-Origin": "*" }
+      "headers": {
+        "Access-Control-Allow-Origin": "https://mern-chat-live1.vercel.app"
+      }
     }
   ]
 }
