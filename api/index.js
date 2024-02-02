@@ -151,6 +151,15 @@ const server = app.listen(4040);
 
 const wss = new ws.WebSocketServer({ server });
 wss.on('connection', (connection, req) => {
+  connection.on('headers', (headers, req) => {
+    headers['Access-Control-Allow-Origin'] =
+      'https://mern-chat-live1.vercel.app';
+    headers['Access-Control-Allow-Methods'] =
+      'GET, POST, OPTIONS, PUT, PATCH, DELETE';
+    headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
+    headers['Access-Control-Allow-Credentials'] = true;
+  });
+
   function notifyAboutOnlinePeople() {
     [...wss.clients].forEach((client) => {
       client.send(
