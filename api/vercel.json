@@ -10,7 +10,9 @@
     { "handle": "filesystem" },
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/",
+      "methods": ["GET", "POST", "PUT", "PATCH", "OPTIONS", "DELETE"],
+      "headers": { "Access-Control-Allow-Origin": "*" }
     }
   ]
 }
