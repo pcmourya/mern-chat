@@ -3,7 +3,7 @@
   "scripts": {
     "server": "nodemon indexjs",
     "start": "node index.js",
-    "build": "npm install && cd ../client install && cd ../client run build"
+    "build": "yarn install && yarn client:install && yarn client:build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
