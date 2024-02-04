@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -9,6 +10,8 @@ const User = require('./models/User');
 const Message = require('./models/Message');
 const ws = require('ws');
 const fs = require('fs');
+
+__dirname = path.resolve();
 
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL, (err) => {
@@ -145,6 +148,11 @@ app.post('/register', async (req, res) => {
     if (err) throw err;
     res.status(500).json('error');
   }
+});
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
 });
 
 const server = app.listen(4040);
